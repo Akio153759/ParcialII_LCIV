@@ -4,7 +4,7 @@
     Author     : Tama
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -23,7 +23,7 @@
                             </div>
                             <div class="modal-body">
                                 <span class="adminpro-icon adminpro-informatio modal-check-pro information-icon-pro"> </span>
-                                <h2>InformaciÃ³n</h2>
+                                <h2>Información</h2>
                                 <p>${message}</p>
                             </div>
                             <div class="modal-footer">
@@ -45,8 +45,8 @@
                                 <p id="msgEliminacion"></p>
                             </div>
                             <div class="modal-footer">
-                                <a id="btnConfirmar">Confirmar</a>
                                 <a data-dismiss="modal" href="#">Cancelar</a>
+                                <a style="margin-left: 1rem;" id="btnConfirmar">Confirmar</a>
                             </div>
                         </div>
                     </div>
@@ -79,8 +79,8 @@
                                             <td>${suministro.contenidoNeto} ${suministro.unidadMedida.abreviacion} (${suministro.unidadMedida.descripcion})</td>
                                             <td>$${suministro.precioUnitario}</td>
                                             <td>
-                                                <a href="EditarSuministro?id=${suministro.codigo}"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                                <button onclick="confirmarEliminacion('${suministro.codigo}','${suministro.nombre}')" data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                <a href="EditarSuministro?id=${suministro.codigo}"><button data-toggle="tooltip" title="Editar suministro" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                                <button onclick="confirmarEliminacion('${suministro.codigo}','${suministro.nombre}')" data-toggle="tooltip" title="Eliminar suministro" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -102,7 +102,7 @@
         </c:if>
             <script>
                 function confirmarEliminacion(id, nombre) {
-                    $('#msgEliminacion').text('Â¿Confirma la eliminaciÃ³n del suministro ' + nombre + '?');
+                    $('#msgEliminacion').text('¿Confirma la eliminación del suministro ' + nombre + '?');
                     $('#btnConfirmar').attr('href','EliminarSuministro?id=' + id);
                     $('#confirmarEliminicacion').modal('show');
                 }

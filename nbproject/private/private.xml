@@ -4,28 +4,49 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/js/suministro_form.js</file>
-            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/models/TipoSuministro.java</file>
-            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/menu.jsp</file>
-            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/controllers/SuministroController.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/models/Despacho.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/despachos_salientes.jsp</file>
             <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/servlets/EliminarSuministro.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/models/Sucursal.java</file>
             <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/servlets/NuevoSuministro.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/js/customize.js</file>
             <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/controllers/TipoSuministroController.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/css/style.css</file>
             <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/body_footer.jsp</file>
-            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/css/buttons.css</file>
             <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/body_header.jsp</file>
             <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/header.jsp</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/servlets/NuevoDespacho.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/dtos/InventarioDto.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/models/Provincia.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/models/Localidad.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/controllers/DespachoController.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/models/Suministro.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/models/Barrio.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/despacho_form.jsp</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/controllers/InventarioController.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/suministros.jsp</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/css/dark-datatable.css</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/models/EmpresaTransportista.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/models/TipoSuministro.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/models/DetalleDespacho.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/dtos/DespachoDto.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/menu.jsp</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/controllers/SuministroController.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/css/buttons.css</file>
             <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/controllers/UnidadesMedidaController.java</file>
             <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/dataaccess/DbHelper.java</file>
             <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/js/suministros.js</file>
             <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/models/UnidadMedida.java</file>
             <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/servlets/EditarSuministro.java</file>
             <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/servlets/ListadoSuministros.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/servlets/ListadoDespachos.java</file>
             <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/suministro_form.jsp</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/models/Empleado.java</file>
             <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/index.jsp</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/js/despacho_form.js</file>
             <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/container_header.jsp</file>
-            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/models/Suministro.java</file>
-            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/suministros.jsp</file>
-            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/css/dark-datatable.css</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/src/java/models/EstadoDespacho.java</file>
+            <file>file:/C:/Users/Tama/UTN/LCIV/Parcial2/Parcial_II/web/js/despachos_salientes.js</file>
         </group>
     </open-files>
 </project-private>

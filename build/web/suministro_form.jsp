@@ -4,7 +4,7 @@
     Author     : Tama
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -49,7 +49,7 @@
                                                             </div>
                                                             <div class="input-group mg-b-pro-edt">
                                                                 <span class="input-group-addon"></span>
-                                                                <textarea name="txtDescripcion"  style="resize: none;" rows="4" class="form-control" placeholder="DescripciÃ³n"><c:if test="${action == 'edit'}"> ${suministro.descripcion} </c:if></textarea>
+                                                                <textarea name="txtDescripcion"  style="resize: none;" rows="4" class="form-control" placeholder="Descripción"><c:if test="${action == 'edit'}"> ${suministro.descripcion} </c:if></textarea>
                                                             </div>
                                                             <div class="form-group-inner">
                                                                 <div class="row">

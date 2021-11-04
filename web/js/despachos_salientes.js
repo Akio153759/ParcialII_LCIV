@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var tabla_suministros;
+
+
+var tabla_despachos_salientes;
 
 $(document).ready(function() {
-   innitTablaSuministros();
+   innitTablaDespachos();
 });
 
-function innitTablaSuministros () {
-    tabla_suministros = $('#tabla_suministros').DataTable({
+function innitTablaDespachos () {
+    tabla_despachos_salientes = $('#tabla_despachos_salientes').DataTable({
         language: datetable_languaje,
         pageLength: 10,
         columnDefs: [

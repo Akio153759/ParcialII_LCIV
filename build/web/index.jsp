@@ -4,7 +4,7 @@
     Author     : Tama
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html"%>
 <!DOCTYPE html>
 <html>
     <jsp:include page="header.jsp" />

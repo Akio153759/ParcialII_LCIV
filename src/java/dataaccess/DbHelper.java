@@ -275,7 +275,7 @@ public class DbHelper {
         boolean _bResult = false;
         PreparedStatement _objPreparedStatement = null;
         
-        String _sQuery = String.format("update %s set activo = 0 where %s = ?", tableName, pkColumn);
+        String _sQuery = String.format("update %s set activo = 0, fh_baja = GETDATE() where %s = ?", tableName, pkColumn);
         
         try 
             {
@@ -307,4 +307,5 @@ public class DbHelper {
         
         return _bResult;
     }
+    
 }

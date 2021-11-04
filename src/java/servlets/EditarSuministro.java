@@ -103,7 +103,6 @@ public class EditarSuministro extends HttpServlet {
             throws ServletException, IOException {
         
         String _codigo = request.getParameter("id");
-        String _nombre = request.getParameter("txtNombre").trim();
         String _descripcion = request.getParameter("txtDescripcion").trim();
         boolean _ventaLibre = request.getParameter("chkVentaLibre") == "on" ? true: false;
         
@@ -116,11 +115,28 @@ public class EditarSuministro extends HttpServlet {
             _precio = 0; // mandar error
         }
         
-        int _tipoSuministro = Integer.parseInt(request.getParameter("cmbTipoSuministro"));
         int _unidadMedida = Integer.parseInt(request.getParameter("cmbUnidadMedida"));
         float _contNeto = request.getParameter("txtContenidoNeto").equals("") ? 0 : Float.parseFloat(request.getParameter("txtContenidoNeto"));
         
+         Suministro _suministro = new Suministro();
         
+        _suministro.setCodigo(_codigo);
+        _suministro.setDescripcion(_descripcion.equals("") ? null : _descripcion);
+        _suministro.setVentaLibre(_ventaLibre);
+        _suministro.setPrecioUnitario(_precio);
+        _suministro.setContenidoNeto(_contNeto);
+        _suministro.setUnidadMedida(new UnidadMedida(_unidadMedida, null, null));
+        
+        SuministroController _controller = new SuministroController();
+        
+        if (_controller.editarSuministro(_suministro)) {
+            request.setAttribute("message", "Suministro modificado con éxito");
+        }
+        else {
+            request.setAttribute("message", "No fué posible modificar suministro");
+        }
+        
+        response.sendRedirect("/Parcial_II/ListadoSuministros");
     }
 
     /**

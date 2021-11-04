@@ -164,4 +164,46 @@ public class SuministroController {
         return _db.deleteData("Suministros", "codigo", codigo);
     }
     
+    
+    public boolean editarSuministro(Suministro suministro) {
+        boolean _bResult = false;
+        
+        ResultSet _spResult;
+        
+        ArrayList<Object> _lstParams = new ArrayList<>();
+        
+        _lstParams.add(suministro.getCodigo());
+        _lstParams.add(suministro.getDescripcion());
+        _lstParams.add(suministro.isVentaLibre());
+        _lstParams.add(suministro.getPrecioUnitario());
+        _lstParams.add(suministro.getContenidoNeto() == 0 ? null : suministro.getContenidoNeto());
+        _lstParams.add(suministro.getUnidadMedida().getId() == 0 ? null :suministro.getUnidadMedida().getId());
+        
+        
+        _spResult = _db.callProcedure("sp_editar_suministro", _lstParams);
+        
+        
+        if (_spResult != null)
+        {
+            try {
+                _spResult.next();
+                
+                if (_spResult.getString("resultado").equals("OK")) {
+                   _bResult = true;
+                }
+                
+                _spResult.close();
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(SuministroController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            finally
+            {
+                _db.disconnectDB();
+            }
+        }
+        
+        return _bResult;
+    }
+    
 }

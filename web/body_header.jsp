@@ -4,7 +4,7 @@
     Author     : Tama
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" %>
 <!DOCTYPE html>
 <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
@@ -31,7 +31,7 @@
                                 <li><a title="Buttons" href="buttons.html"><span class="mini-sub-pro">Transportistas</span></a></li>
                             </ul>
                         </li>
-                        <li><a href="mailbox.html" aria-expanded="false"><i class="icon nalika-smartphone-call icon-wrap"></i> <span class="mini-click-non">Despachos</span></a></li>
+                        <li><a href="ListadoDespachos" aria-expanded="false"><i class="icon nalika-smartphone-call icon-wrap"></i> <span class="mini-click-non">Despachos</span></a></li>
 
                     </ul>
                 </nav>

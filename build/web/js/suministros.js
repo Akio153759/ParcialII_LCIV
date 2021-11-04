@@ -12,7 +12,7 @@ $(document).ready(function() {
 function innitTablaSuministros () {
     tabla_suministros = $('#tabla_suministros').DataTable({
         language: datetable_languaje,
-        pageLength: 5,
+        pageLength: 10,
         columnDefs: [
             {
                 'targets': [4],

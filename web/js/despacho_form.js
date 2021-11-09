@@ -23,6 +23,11 @@ $(document).ready(function(){
 
     
     } );  
+    
+    $('#btnGrabarDespacho').click(function(){
+        console.log('click')
+        grabarDespacho();
+    });
 });
 
 function cargarSuministro(component, codigo, suministro, cantidad) {
@@ -63,9 +68,44 @@ function cargarSuministro(component, codigo, suministro, cantidad) {
     });
     
     if (!exist) {
-        tabla_suministros_despachar.row.add([codigo, suministro, cantidad,'<i style="cursor: pointer" class="fa fa-times" aria-hidden="true"></i>']).draw();
+        tabla_suministros_despachar.row.add([codigo, suministro, cantidad,'<i style="cursor: pointer" onclick="removerSuministro(\'' + codigo + '\',\'' + cantidad + '\')" class="fa fa-times" aria-hidden="true"></i>']).draw();
     }
     
+
+    
+    $(component).val('');
+}
+
+
+function removerSuministro(codigo, cantidad) {
+    
+
+    console.log('llega')
+    tabla_stock_sucursal.rows().every(function ( rowIdx, tableLoop, rowLoop ){
+        let cod_suministro = this.data()[0];
+        
+        if (cod_suministro === codigo) {
+            
+            let cant_anterior = this.data()[2];
+            
+            let restante = parseInt(cant_anterior) + parseInt(cantidad);
+            
+            tabla_stock_sucursal.cell(rowIdx,2).data(restante.toString()).draw();
+           
+        }
+    });
+
+    
+    
+    tabla_suministros_despachar.rows().every(function ( rowIdx, tableLoop, rowLoop ){
+        let cod_suministro = this.data()[0];
+        
+        if (cod_suministro === codigo) {
+            tabla_suministros_despachar.rows(rowIdx).remove().draw();
+        }
+    });
+    
+
     
     $(component).val('');
 }
@@ -100,5 +140,47 @@ function innitTablaSuministrosDespachar() {
             },
     ],
                      
+    });
+}
+
+function grabarDespacho() {
+    
+    let despacho = {
+        sucOrigen : 'COR000001',
+        sucDestino: $('#cmbSucursalDestino option:selected').val(),
+        empresaTransp : $('#cmbEmpresaTransportista option:selected').val(),
+        detalle : []
+    };
+    
+    despacho.detalle = [];
+    
+    tabla_suministros_despachar.rows().every(function ( rowIdx, tableLoop, rowLoop ){
+        let cod_suministro = this.data()[0];
+        let cantidad = this.data()[2];
+        
+        despacho.detalle.push({
+            suministro : cod_suministro,
+            cantidad: cantidad
+        });
+        
+    });
+   
+    
+    
+    console.log('grabar')
+    
+     $.ajax({
+        url: "NuevoDespacho",
+        type: 'POST',
+        datatype: 'json',
+        data: {detalle: JSON.stringify(despacho)},
+        statusCode: {
+            200: function () {  
+                console.log('200');
+            },
+            500: function () {
+               console.log('500');
+            }
+        }
     });
 }

@@ -5,7 +5,11 @@
  */
 package servlets;
 
+import com.google.gson.Gson;
+import controllers.EmpresaTransportistaController;
 import controllers.InventarioController;
+import controllers.SucursalController;
+import dtos.DespachoDtoInsert;
 import dtos.InventarioDto;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +20,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Despacho;
+import models.DetalleDespacho;
+import models.EmpresaTransportista;
+import models.Sucursal;
+
 
 /**
  *
@@ -66,10 +75,16 @@ public class NuevoDespacho extends HttpServlet {
         String cod_sucursal = "COR000001";
         
         InventarioController _controller = new InventarioController();
+        SucursalController _controllerSucursal = new SucursalController();
+        EmpresaTransportistaController _controllerET = new EmpresaTransportistaController();
         
         ArrayList<InventarioDto> _lstSuministros = _controller.getInventarioSucursal(cod_sucursal);
+        ArrayList<Sucursal> _lstSucursales = _controllerSucursal.getSucursales();
+         ArrayList<EmpresaTransportista> _lstEmprTransp = _controllerET.getEmpresasTransportistas();
         
         request.setAttribute("stock", _lstSuministros);
+        request.setAttribute("sucursales", _lstSucursales);
+        request.setAttribute("empresas_transportistas", _lstEmprTransp);
        
         RequestDispatcher _dispatcher = getServletContext().getRequestDispatcher("/despacho_form.jsp");
         
@@ -87,7 +102,12 @@ public class NuevoDespacho extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String jsonDetalle = request.getParameter("detalle");
+        Gson gson = new Gson();
+        
+        DespachoDtoInsert _despacho = gson.fromJson(jsonDetalle, DespachoDtoInsert.class);
+        
+        
     }
 
     /**

@@ -4,6 +4,8 @@
     Author     : Tama
 --%>
 
+<%@page import="models.DetalleDespacho"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -38,16 +40,22 @@
                                                             <select name="cmbSucursalOrigen" class="form-control pro-edt-select form-control-primary mg-b-pro-edt">
                                                                     <option value="0">Seleccione la sucursal de origen</option>
                                                             </select>
-                                                            <select name="cmbEmpresaTransportista" class="form-control pro-edt-select form-control-primary mg-b-pro-edt">
+                                                            <select id="cmbEmpresaTransportista" name="cmbEmpresaTransportista" class="form-control pro-edt-select form-control-primary mg-b-pro-edt">
                                                                     <option value="0">Seleccione la empresa transportista</option>
+                                                                    <c:forEach items="${requestScope.empresas_transportistas}" var="et">
+                                                                        <option value="${et.codigo}">${et.nombre}</option>
+                                                                    </c:forEach>
                                                             </select>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                         <div class="review-content-section">
-                                                             <select name="cmbSucursalDestino" class="form-control pro-edt-select form-control-primary mg-b-pro-edt">
+                                                             <select id="cmbSucursalDestino" name="cmbSucursalDestino" class="form-control pro-edt-select form-control-primary mg-b-pro-edt">
                                                                  <option value="0">Seleccione la sucursal de destino</option>
+                                                                 <c:forEach items="${requestScope.sucursales}" var="sucursal">
+                                                                     <option value="${sucursal.codigo}">${sucursal.nombre}</option>
+                                                                 </c:forEach>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -87,7 +95,7 @@
                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                         <div class="review-content-section">
                                                             <h4>Suministros a despachar</h4>
-                                                            <table id="tabla_suministros_despachar">
+                                                            <table name="tabla_suministros_despachar" id="tabla_suministros_despachar">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Código</th>
@@ -106,7 +114,7 @@
                                                         <div class="row">
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 2rem;">
                                                                 <div class="text-center custom-pro-edt-ds">
-                                                                    <button type="submit" class="btn btn-ctl-bt waves-effect waves-light m-r-10">Grabar
+                                                                    <button id="btnGrabarDespacho" type="button" class="btn btn-ctl-bt waves-effect waves-light m-r-10">Grabar
                                                                                                                                 </button>
                                                                     <button type="button"  class="btn btn-ctl-bt waves-effect waves-light"><a href="ListadoSuministros">Cancelar</a>
                                                                                                                                 </button>

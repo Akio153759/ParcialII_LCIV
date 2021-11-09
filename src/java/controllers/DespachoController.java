@@ -7,6 +7,7 @@ package controllers;
 
 import dataaccess.DbHelper;
 import dtos.DespachoDto;
+import dtos.DespachoDtoInsert;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -67,5 +68,42 @@ public class DespachoController {
         }
         
         return _lstDespachos;
+    }
+    
+    
+    public boolean registrarDespacho(DespachoDtoInsert despacho)
+    {
+        boolean _bResult = false;
+        
+        ResultSet _spResult;
+        
+        ArrayList<Object> _lstParams = new ArrayList<>();
+        
+        
+        
+        _spResult = _db.callProcedure("sp_nuevo_suministro", _lstParams);
+        
+        
+        if (_spResult != null)
+        {
+            try {
+                _spResult.next();
+                
+                if (_spResult.getString("resultado").equals("OK")) {
+                   _bResult = true;
+                }
+                
+                _spResult.close();
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(SuministroController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            finally
+            {
+                _db.disconnectDB();
+            }
+        }
+        
+        return _bResult;
     }
 }

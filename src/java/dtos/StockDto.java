@@ -9,9 +9,19 @@ package dtos;
  *
  * @author Tama
  */
-public class DetalleDespachoDtoInsert {
+public class StockDto {
+    private String sucursal;
     private String suministro;
+    private float precioUnitario;
     private int cantidad;
+
+    public String getSucursal() {
+        return sucursal;
+    }
+
+    public void setSucursal(String sucursal) {
+        this.sucursal = sucursal;
+    }
 
     public String getSuministro() {
         return suministro;
@@ -19,6 +29,14 @@ public class DetalleDespachoDtoInsert {
 
     public void setSuministro(String suministro) {
         this.suministro = suministro;
+    }
+
+    public float getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public void setPrecioUnitario(float precioUnitario) {
+        this.precioUnitario = precioUnitario;
     }
 
     public int getCantidad() {

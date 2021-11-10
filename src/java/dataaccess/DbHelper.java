@@ -270,6 +270,77 @@ public class DbHelper {
         return _bResult;
     }
     
+    
+    public boolean insertBatchData(String tableName, ArrayList<String> lstColumns, ArrayList<ArrayList<Object>> lstBatch ) throws SQLException
+    {
+        boolean _bResult = false;
+        
+        
+        PreparedStatement _objPS = null;
+        String _sCampos = "";
+        String _sValues = "";
+
+
+        for (String campo : lstColumns) 
+        {
+            _sCampos += String.format("%s,", campo);
+        }
+
+        _sCampos = _sCampos.substring(0, _sCampos.length() - 1);
+
+        boolean first = true;
+        for (ArrayList lstValues : lstBatch) 
+        {
+            if (first) {
+                _sValues = "";
+           
+                for (Object valor : lstValues) {
+                     _sValues += "?,";
+                }
+
+                 _sValues = _sValues.substring(0, _sValues.length() - 1);
+                 String _sQuery = String.format("INSERT INTO %s(%s) VALUES(%s)", tableName, _sCampos, _sValues);
+                 
+                 _objPS = _objConnection.prepareStatement(_sQuery);
+                 
+                 first = false;
+            }
+             
+            for (int i = 0; i < lstValues.size(); i++)
+            {
+                if (lstValues.get(i) instanceof String)
+                {
+                    _objPS.setString(i+1, (String)(lstValues.get(i)));
+                }
+                else if (lstValues.get(i) instanceof Integer)
+                {
+                    _objPS.setInt(i+1, (int)(lstValues.get(i)));
+                }
+                 else if (lstValues.get(i) instanceof Float)
+                {
+                    _objPS.setFloat(i+1, (float)(lstValues.get(i)));
+                }
+
+
+            }
+
+             _objPS.addBatch();
+
+        }
+        
+        // bulk insert
+        try {
+            _objPS.executeBatch();
+
+            _bResult = true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DbHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+  
+        return _bResult;
+    }
+    
     // Baja lógica
     public boolean deleteData(String tableName, String pkColumn, Object pkValue) {
         boolean _bResult = false;

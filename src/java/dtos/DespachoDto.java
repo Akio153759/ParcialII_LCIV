@@ -6,6 +6,7 @@
 package dtos;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,6 +22,17 @@ public class DespachoDto {
     private String fhRecepcion;
     private String empresaTransportista;
     private String estado;
+    private ArrayList<DetalleDespachoDtoInsert> detalle;
+
+    public ArrayList<DetalleDespachoDtoInsert> getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(ArrayList<DetalleDespachoDtoInsert> detalle) {
+        this.detalle = detalle;
+    }
+    
+    
 
     public DespachoDto() {
     }

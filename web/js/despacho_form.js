@@ -167,8 +167,6 @@ function grabarDespacho() {
    
     
     
-    console.log('grabar')
-    
      $.ajax({
         url: "NuevoDespacho",
         type: 'POST',
@@ -176,10 +174,10 @@ function grabarDespacho() {
         data: {detalle: JSON.stringify(despacho)},
         statusCode: {
             200: function () {  
-                console.log('200');
+                window.location = 'Parcial_II/ListadoDespachos';
             },
             500: function () {
-               console.log('500');
+               
             }
         }
     });

@@ -5,37 +5,24 @@
  */
 package servlets;
 
-import com.google.gson.Gson;
 import controllers.DespachoController;
-import controllers.EmpresaTransportistaController;
-import controllers.InventarioController;
-import controllers.SucursalController;
-import dtos.DespachoDtoInsert;
-import dtos.InventarioDto;
+import dtos.DespachoDto;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.Despacho;
-import models.DetalleDespacho;
-import models.EmpresaTransportista;
-import models.Sucursal;
-
 
 /**
  *
  * @author Tama
  */
-@WebServlet(name = "NuevoDespacho", urlPatterns = {"/NuevoDespacho"})
-public class NuevoDespacho extends HttpServlet {
+@WebServlet(name = "DetalleDespacho", urlPatterns = {"/DetalleDespacho"})
+public class DetalleDespacho extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -54,10 +41,10 @@ public class NuevoDespacho extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet NuevoDespacho</title>");            
+            out.println("<title>Servlet DetalleDespacho</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet NuevoDespacho at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DetalleDespacho at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -76,21 +63,27 @@ public class NuevoDespacho extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String cod_sucursal = "COR000001";
+        DespachoController _controller = new DespachoController();
         
-        InventarioController _controller = new InventarioController();
-        SucursalController _controllerSucursal = new SucursalController();
-        EmpresaTransportistaController _controllerET = new EmpresaTransportistaController();
+        String codDespacho = request.getParameter("cod");
         
-        ArrayList<InventarioDto> _lstSuministros = _controller.getInventarioSucursal(cod_sucursal);
-        ArrayList<Sucursal> _lstSucursales = _controllerSucursal.getSucursales();
-         ArrayList<EmpresaTransportista> _lstEmprTransp = _controllerET.getEmpresasTransportistas();
+        ArrayList<DespachoDto> lstDespachos = (ArrayList<DespachoDto>) request.getSession().getAttribute("despachos");
         
-        request.setAttribute("stock", _lstSuministros);
-        request.setAttribute("sucursales", _lstSucursales);
-        request.setAttribute("empresas_transportistas", _lstEmprTransp);
-       
-        RequestDispatcher _dispatcher = getServletContext().getRequestDispatcher("/despacho_form.jsp");
+        DespachoDto despacho = null;
+        
+        for (DespachoDto d : lstDespachos) {
+            if (d.getCodigo().equals(codDespacho)) {
+                despacho = d;
+                break;
+            }
+        }
+        
+        
+        despacho = _controller.getDespachoDetalle(despacho);
+        
+        request.setAttribute("despacho", despacho);
+        
+        RequestDispatcher _dispatcher = getServletContext().getRequestDispatcher("/detalle_despacho.jsp");
         
         _dispatcher.forward(request, response);
     }
@@ -106,25 +99,7 @@ public class NuevoDespacho extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String jsonDetalle = request.getParameter("detalle");
-        Gson gson = new Gson();
-        
-        DespachoDtoInsert _despacho = gson.fromJson(jsonDetalle, DespachoDtoInsert.class);
-        DespachoController _controller = new DespachoController();
-        
-        try {
-            if (_controller.registrarDespacho(_despacho))
-            {
-                // ok
-            }
-            else {
-                // error
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(NuevoDespacho.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        response.sendRedirect("/Parcial_II/ListadoDespachos");
+        processRequest(request, response);
     }
 
     /**

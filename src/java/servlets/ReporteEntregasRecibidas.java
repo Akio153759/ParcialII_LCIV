@@ -5,37 +5,26 @@
  */
 package servlets;
 
-import com.google.gson.Gson;
-import controllers.DespachoController;
-import controllers.EmpresaTransportistaController;
-import controllers.InventarioController;
+import controllers.ReportController;
 import controllers.SucursalController;
-import dtos.DespachoDtoInsert;
-import dtos.InventarioDto;
+import dtos.DespachoDto;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.Despacho;
-import models.DetalleDespacho;
-import models.EmpresaTransportista;
 import models.Sucursal;
-
 
 /**
  *
  * @author Tama
  */
-@WebServlet(name = "NuevoDespacho", urlPatterns = {"/NuevoDespacho"})
-public class NuevoDespacho extends HttpServlet {
+@WebServlet(name = "ReporteEntregasRecibidas", urlPatterns = {"/ReporteEntregasRecibidas"})
+public class ReporteEntregasRecibidas extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -54,10 +43,10 @@ public class NuevoDespacho extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet NuevoDespacho</title>");            
+            out.println("<title>Servlet ReporteEntregasRecibidas</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet NuevoDespacho at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ReporteEntregasRecibidas at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -75,22 +64,15 @@ public class NuevoDespacho extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String cod_sucursal = "COR000001";
-        
-        InventarioController _controller = new InventarioController();
+
         SucursalController _controllerSucursal = new SucursalController();
-        EmpresaTransportistaController _controllerET = new EmpresaTransportistaController();
-        
-        ArrayList<InventarioDto> _lstSuministros = _controller.getInventarioSucursal(cod_sucursal);
+
         ArrayList<Sucursal> _lstSucursales = _controllerSucursal.getSucursales();
-         ArrayList<EmpresaTransportista> _lstEmprTransp = _controllerET.getEmpresasTransportistas();
         
-        request.setAttribute("stock", _lstSuministros);
+
         request.setAttribute("sucursales", _lstSucursales);
-        request.setAttribute("empresas_transportistas", _lstEmprTransp);
        
-        RequestDispatcher _dispatcher = getServletContext().getRequestDispatcher("/despacho_form.jsp");
+        RequestDispatcher _dispatcher = getServletContext().getRequestDispatcher("/reporte_entregas_recibidas.jsp");
         
         _dispatcher.forward(request, response);
     }
@@ -106,25 +88,19 @@ public class NuevoDespacho extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String jsonDetalle = request.getParameter("detalle");
-        Gson gson = new Gson();
         
-        DespachoDtoInsert _despacho = gson.fromJson(jsonDetalle, DespachoDtoInsert.class);
-        DespachoController _controller = new DespachoController();
+        String codSucursal = request.getParameter("codSucursal");
         
-        try {
-            if (_controller.registrarDespacho(_despacho))
-            {
-                // ok
-            }
-            else {
-                // error
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(NuevoDespacho.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ReportController _controller = new ReportController();
         
-        response.sendRedirect("/Parcial_II/ListadoDespachos");
+        ArrayList<DespachoDto> reporte = _controller.rptEntregasRecibidas(codSucursal);
+        
+        request.setAttribute("reporte", reporte);
+        
+        RequestDispatcher _dispatcher = getServletContext().getRequestDispatcher("/rpt_entregas_recibidas_resultado.jsp");
+        
+        _dispatcher.forward(request, response);
+        
     }
 
     /**

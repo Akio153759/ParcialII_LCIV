@@ -5,37 +5,28 @@
  */
 package servlets;
 
-import com.google.gson.Gson;
-import controllers.DespachoController;
-import controllers.EmpresaTransportistaController;
-import controllers.InventarioController;
+import controllers.ReportController;
 import controllers.SucursalController;
-import dtos.DespachoDtoInsert;
-import dtos.InventarioDto;
+import controllers.SuministroController;
+import dtos.StockDto;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.Despacho;
-import models.DetalleDespacho;
-import models.EmpresaTransportista;
 import models.Sucursal;
-
+import models.Suministro;
 
 /**
  *
  * @author Tama
  */
-@WebServlet(name = "NuevoDespacho", urlPatterns = {"/NuevoDespacho"})
-public class NuevoDespacho extends HttpServlet {
+@WebServlet(name = "ReporteArticuloSucursal", urlPatterns = {"/ReporteArticuloSucursal"})
+public class ReporteArticuloSucursal extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -54,10 +45,10 @@ public class NuevoDespacho extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet NuevoDespacho</title>");            
+            out.println("<title>Servlet ReporteArticuloSucursal</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet NuevoDespacho at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ReporteArticuloSucursal at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -76,21 +67,13 @@ public class NuevoDespacho extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String cod_sucursal = "COR000001";
+        SuministroController _controller = new SuministroController();
         
-        InventarioController _controller = new InventarioController();
-        SucursalController _controllerSucursal = new SucursalController();
-        EmpresaTransportistaController _controllerET = new EmpresaTransportistaController();
+        ArrayList<Suministro> lstSuministros = _controller.getSuministros();
         
-        ArrayList<InventarioDto> _lstSuministros = _controller.getInventarioSucursal(cod_sucursal);
-        ArrayList<Sucursal> _lstSucursales = _controllerSucursal.getSucursales();
-         ArrayList<EmpresaTransportista> _lstEmprTransp = _controllerET.getEmpresasTransportistas();
+        request.setAttribute("suministros", lstSuministros);
         
-        request.setAttribute("stock", _lstSuministros);
-        request.setAttribute("sucursales", _lstSucursales);
-        request.setAttribute("empresas_transportistas", _lstEmprTransp);
-       
-        RequestDispatcher _dispatcher = getServletContext().getRequestDispatcher("/despacho_form.jsp");
+        RequestDispatcher _dispatcher = getServletContext().getRequestDispatcher("/reporte_stock_articulo_suc.jsp");
         
         _dispatcher.forward(request, response);
     }
@@ -106,25 +89,23 @@ public class NuevoDespacho extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String jsonDetalle = request.getParameter("detalle");
-        Gson gson = new Gson();
         
-        DespachoDtoInsert _despacho = gson.fromJson(jsonDetalle, DespachoDtoInsert.class);
-        DespachoController _controller = new DespachoController();
+        String codSuministro = request.getParameter("codSuministro");
+        String nombreSuministro = request.getParameter("nomSuministro");
         
-        try {
-            if (_controller.registrarDespacho(_despacho))
-            {
-                // ok
-            }
-            else {
-                // error
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(NuevoDespacho.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        SucursalController _controller = new SucursalController();
+        ReportController _controllerR = new ReportController();
         
-        response.sendRedirect("/Parcial_II/ListadoDespachos");
+        ArrayList<StockDto> lstReporte = _controllerR.rptStockArticuloSucursales(codSuministro);
+        ArrayList<Sucursal> lstSucursales = _controller.getSucursales();
+        
+        request.setAttribute("sucursales", lstSucursales);
+        request.setAttribute("reporte", lstReporte);
+        request.setAttribute("articulo", nombreSuministro);
+        
+        RequestDispatcher _dispatcher = getServletContext().getRequestDispatcher("/rpt_articulo_sucursal_resultado.jsp");
+        
+        _dispatcher.forward(request, response);
     }
 
     /**

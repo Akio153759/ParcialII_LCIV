@@ -31,8 +31,16 @@
                                 <li><a title="Buttons" href="buttons.html"><span class="mini-sub-pro">Transportistas</span></a></li>
                             </ul>
                         </li>
-                        <li><a href="ListadoDespachos" aria-expanded="false"><i class="icon nalika-smartphone-call icon-wrap"></i> <span class="mini-click-non">Despachos</span></a></li>
-
+                        <li><a href="ListadoDespachos" aria-expanded="false"><i class="icon nalika-smartphone-call icon-wrap"></i> <span class="mini-click-non">Despachos Salientes</span></a></li>
+                        <li><a href="ListadoDespachosEntrantes" aria-expanded="false"><i class="icon nalika-smartphone-call icon-wrap"></i> <span class="mini-click-non">Despachos Entrantes</span></a></li>
+                        <li>
+                            <a class="has-arrow" href="mailbox.html" aria-expanded="false"><i class="icon nalika-smartphone-call icon-wrap"></i> <span class="mini-click-non">Reportes</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a title="Notifications" href="ReporteEntregasRecibidas"><span class="mini-sub-pro">Entregas recibidas</span></a></li>
+                                 <li><a title="Notifications" href="ReporteStockSucursales"><span class="mini-sub-pro">Stock por sucursal</span></a></li>
+                                 <li><a title="Notifications" href="ReporteArticuloSucursal"><span class="mini-sub-pro">Suministro por sucursal</span></a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
             </div>

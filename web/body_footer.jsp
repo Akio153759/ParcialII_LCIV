@@ -60,6 +60,8 @@
     <!-- datatable JS
 		============================================ -->
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
 
     <!-- main JS
 		============================================ -->
